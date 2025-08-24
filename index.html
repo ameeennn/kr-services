@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KR Services - Home Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .fade-in { opacity: 1; transition: opacity 0.3s ease-in-out; }
+        .fade-out { opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .service-card:hover { transform: translateY(-5px); transition: transform 0.3s ease; }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.875rem; line-height: 2.25rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .service-card { margin-bottom: 1.5rem; }
+            .container { padding-left: 1rem; padding-right: 1rem; }
+        }
+        @media (max-width: 640px) {
+            .hero-title { font-size: 1.5rem; line-height: 2rem; }
+            .hero-subtitle { font-size: 0.875rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                <div class="flex items-center justify-center sm:justify-start">
+                    <h1 class="text-xl sm:text-2xl font-bold text-blue-600">KR Services</h1>
+                </div>
+                
+                <!-- Language Toggle -->
+                <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <div class="flex bg-gray-100 rounded-lg p-1 w-full sm:w-auto justify-center">
+                        <button onclick="changeLanguage('en')" class="px-4 py-2 sm:px-3 sm:py-1 rounded-md text-sm font-medium transition-colors flex-1 sm:flex-none" id="en-btn">English</button>
+                        <button onclick="changeLanguage('ml')" class="px-4 py-2 sm:px-3 sm:py-1 rounded-md text-sm font-medium transition-colors flex-1 sm:flex-none" id="ml-btn">മലയാളം</button>
+                    </div>
+                    
+                    <!-- Auth Buttons -->
+                    <div id="authButtons" class="flex justify-center sm:justify-start">
+                        <button onclick="openLoginModal()" class="px-6 py-2 text-blue-600 hover:bg-blue-50 rounded-lg font-medium">Sign In</button>
+                    </div>
+                    
+                    <!-- User Menu (hidden by default) -->
+                    <div id="userMenu" class="hidden flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div id="userAvatar" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
+                            </div>
+                            <span id="userName" class="text-gray-700 text-sm sm:text-base"></span>
+                        </div>
+                        <button onclick="logout()" class="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 sm:py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 id="hero-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 hero-title px-2">Find Trusted Local Service Providers</h2>
+            <p id="hero-subtitle" class="text-base sm:text-lg md:text-xl mb-8 hero-subtitle px-4 max-w-3xl mx-auto">Book professional services for your home with just a few clicks. Quality guaranteed!</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 px-4">
+                <a href="#services" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Browse Services</a>
+                <a href="track_service.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">Track Service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-12 sm:py-16">
+        <div class="container mx-auto px-4">
+            <h2 id="services-title" class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Our Services</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Home Cleaning -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Home Cleaning')">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-broom text-6xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Home Cleaning</h3>
+                        <p class="text-gray-600 mb-4 text-sm sm:text-base">
+                            Professional deep cleaning services for your home. We handle kitchens, bathrooms, living areas, and more.
+                        </p>
+                        <button class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 font-medium">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                <!-- AC Repair -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('AC Repair')">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-snowflake text-6xl text-green-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">AC Repair</h3>
+                        <p class="text-gray-600 mb-4">
+                            Expert AC repair and maintenance services by certified technicians. Get your cooling system running smoothly.
+                        </p>
+                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plumbing -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Plumbing')">
+                    <div class="h-48 bg-yellow-100 flex items-center justify-center">
+                        <i class="fas fa-tint text-6xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Plumbing</h3>
+                        <p class="text-gray-600 mb-4">
+                            Fix leaks, unclog drains, and solve all plumbing issues with our experienced plumbers.
+                        </p>
+                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Electrical Work -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Electrical Work')">
+                    <div class="h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-bolt text-6xl text-purple-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Electrical</h3>
+                        <p class="text-gray-600 mb-4">
+                            Safe and reliable electrical repairs, installations, and maintenance for your home.
+                        </p>
+                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Painting -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Painting')">
+                    <div class="h-48 bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-paint-roller text-6xl text-red-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Painting</h3>
+                        <p class="text-gray-600 mb-4">
+                            Interior and exterior painting services by skilled professionals using quality materials.
+                        </p>
+                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                <!-- Appliance Repair -->
+                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Appliance Repair')">
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                        <i class="fas fa-wrench text-6xl text-indigo-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Appliance Repair</h3>
+                        <p class="text-gray-600 mb-4">
+                            Repair services for all major home appliances - refrigerators, washing machines, and more.
+                        </p>
+                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Additional Navigation -->
+            <div class="mt-12 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="track_service.html" class="px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition duration-300 text-center">
+                    <i class="fas fa-map-marker-alt mr-2"></i> Track Your Service
+                </a>
+                <a href="provider.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-300 text-center">
+                    <i class="fas fa-user-plus mr-2"></i> Become a Provider
+                </a>
+            </div>
+        </div>
+    </section>
+    
+     <!-- Features Section -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-12">Why Choose ServiceHub?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center px-4">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Verified Professionals</h3>
+                    <p class="text-gray-600">
+                        All our service providers are thoroughly vetted and background-checked for your safety.
+                    </p>
+                </div>
+                
+                <div class="text-center px-4">
+                    <div class="bg-green-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-rupee-sign text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Transparent Pricing</h3>
+                    <p class="text-gray-600">
+                        No hidden charges. Get upfront pricing before you book any service.
+                    </p>
+                </div>
+                
+                <div class="text-center px-4">
+                    <div class="bg-purple-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-headset text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">
+                        Our customer support team is always available to assist you with any queries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">ServiceHub</h3>
+                    <p class="text-gray-400">
+                        Your trusted partner for all home service needs. Quality service at your doorstep.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white">Services</a></li>
+                        <li><a href="track_service.html" class="text-gray-400 hover:text-white">Track Service</a></li>
+                        <li><a href="provider.html" class="text-gray-400 hover:text-white">Become a Provider</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i> +91 9876543210
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i> support@servicehub.com
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Kochi, Kerala
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 ServiceHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-out hidden" onclick="closeModal('loginModal')">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4" onclick="event.stopPropagation()">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold">Sign In</h3>
+                    <button onclick="closeModal('loginModal')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form onsubmit="loginUser(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="loginEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="loginPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        Sign In
+                    </button>
+                    
+                    <div class="mt-4 text-center">
+                        <button type="button" onclick="signInWithGoogle()" class="w-full py-2 px-4 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition duration-300 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="h-5 w-5 mr-2">
+                            Sign in with Google
+                        </button>
+                    </div>
+                    
+                    <div class="text-center text-sm mt-4">
+                        <span class="text-gray-600">Don't have an account? </span>
+                        <button type="button" onclick="switchToSignup()" class="text-blue-600 hover:underline">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-out hidden" onclick="closeModal('signupModal')">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4" onclick="event.stopPropagation()">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold">Create Account</h3>
+                    <button onclick="closeModal('signupModal')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form onsubmit="registerUser(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="signupName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="signupEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                        <input type="tel" id="signupPhone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <input type="password" id="signupPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        Create Account
+                    </button>
+                    
+                    <div class="mt-4 text-center">
+                        <button type="button" onclick="signInWithGoogle()" class="w-full py-2 px-4 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition duration-300 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="h-5 w-5 mr-2">
+                            Sign up with Google
+                        </button>
+                    </div>
+                    
+                    <div class="text-center text-sm mt-4">
+                        <span class="text-gray-600">Already have an account? </span>
+                        <button type="button" onclick="switchToLogin()" class="text-blue-600 hover:underline">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Required Modal -->
+    <div id="authRequiredModal" class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-out hidden" onclick="closeModal('authRequiredModal')">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4" onclick="event.stopPropagation()">
+            <div class="p-6">
+                <div class="text-center">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
+                        <i class="fas fa-exclamation text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Authentication Required</h3>
+                    <p class="text-gray-600 mb-6">You need to sign in to book this service.</p>
+                    
+                    <div class="flex flex-col space-y-3">
+                        <button onclick="closeModal('authRequiredModal'); openLoginModal();" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Sign In
+                        </button>
+                        <button onclick="closeModal('authRequiredModal'); openSignupModal();" class="w-full py-2 px-4 bg-white border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+            changeLanguage(currentLanguage);
+            
+            // Initialize Google Auth when page loads
+            if (typeof google !== 'undefined') {
+                initializeGoogleAuth();
+            } else {
+                // Wait for Google script to load
+                window.addEventListener('load', initializeGoogleAuth);
+            }
+        });
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button styles
+            document.getElementById('en-btn').className = lang === 'en' ? 
+                'px-3 py-1 rounded-md text-sm font-medium bg-white text-blue-600 shadow-sm' : 
+                'px-3 py-1 rounded-md text-sm font-medium text-gray-600 hover:text-gray-800';
+            document.getElementById('ml-btn').className = lang === 'ml' ? 
+                'px-3 py-1 rounded-md text-sm font-medium bg-white text-blue-600 shadow-sm' : 
+                'px-3 py-1 rounded-md text-sm font-medium text-gray-600 hover:text-gray-800';
+
+            if (lang === 'ml') {
+                document.getElementById('hero-title').textContent = 'വിശ്വസനീയമായ പ്രാദേശിക സേവന ദാതാക്കളെ കണ്ടെത്തുക';
+                document.getElementById('hero-subtitle').textContent = 'നിങ്ങളുടെ വീട്ടിനായി പ്രൊഫഷണൽ സേവനങ്ങൾ ബുക്ക് ചെയ്യുക. ഗുണനിലവാരം ഉറപ്പാക്കുന്നു!';
+                document.getElementById('services-title').textContent = 'ഞങ്ങളുടെ സേവനങ്ങൾ';
+            } else {
+                document.getElementById('hero-title').textContent = 'Find Trusted Local Service Providers';
+                document.getElementById('hero-subtitle').textContent = 'Book professional services for your home with just a few clicks. Quality guaranteed!';
+                document.getElementById('services-title').textContent = 'Our Services';
+            }
+        }
+
+        function updateAuthUI() {
+            if (isLoggedIn) {
+                document.getElementById('authButtons').classList.add('hidden');
+                document.getElementById('userMenu').classList.remove('hidden');
+                document.getElementById('userName').textContent = currentUser.name || currentUser.email || 'User';
+                
+                // Update avatar
+                const avatar = document.getElementById('userAvatar');
+                if (currentUser.picture) {
+                    // Google user - show profile picture
+                    avatar.innerHTML = `<img src="${currentUser.picture}" alt="Profile" class="w-8 h-8 rounded-full">`;
+                } else {
+                    // Email user - show grey placeholder
+                    avatar.innerHTML = '<i class="fas fa-user text-white text-sm"></i>';
+                    avatar.className = 'w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center';
+                }
+            } else {
+                document.getElementById('authButtons').classList.remove('hidden');
+                document.getElementById('userMenu').classList.add('hidden');
+            }
+        }
+
+        function selectService(serviceName) {
+            if (!isLoggedIn) {
+                openAuthRequiredModal();
+                return;
+            }
+            
+            // Store selected service and redirect
+            localStorage.setItem('selectedService', serviceName);
+            window.location.href = 'confirm_service.html';
+        }
+
+        function openLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('hidden', 'fade-out');
+            modal.classList.add('fade-in');
+        }
+
+        function openSignupModal() {
+            const modal = document.getElementById('signupModal');
+            modal.classList.remove('hidden', 'fade-out');
+            modal.classList.add('fade-in');
+        }
+
+        function openAuthRequiredModal() {
+            const modal = document.getElementById('authRequiredModal');
+            modal.classList.remove('hidden', 'fade-out');
+            modal.classList.add('fade-in');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('fade-in');
+            modal.classList.add('fade-out');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.classList.remove('fade-in');
+                modal.classList.add('fade-out', 'hidden');
+            });
+        }
+
+        function switchToSignup() {
+            closeModal('loginModal');
+            setTimeout(() => openSignupModal(), 350);
+        }
+
+        function switchToLogin() {
+            closeModal('signupModal');
+            setTimeout(() => openLoginModal(), 350);
+        }
+
+        function loginUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (email && password) {
+                // Generate unique user_id for regular login
+                const userId = generateUserId();
+                currentUser = { 
+                    email: email, 
+                    name: email.split('@')[0],
+                    user_id: userId
+                };
+                isLoggedIn = true;
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                updateAuthUI();
+                closeModal('loginModal');
+                alert('Successfully logged in!');
+            }
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            if (name && email && phone && password) {
+                // Generate unique user_id for registration
+                const userId = generateUserId();
+                currentUser = { 
+                    name: name, 
+                    email: email, 
+                    phone: phone,
+                    user_id: userId
+                };
+                isLoggedIn = true;
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                updateAuthUI();
+                closeModal('signupModal');
+                alert('Account created successfully!');
+            }
+        }
+
+        // Supabase Configuration
+        const supabaseUrl = 'https://imdrjtjlpuqdixvpdytk.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImltZHJqdGpscHVxZGl4dnBkeXRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzExMTcsImV4cCI6MjA3MTYwNzExN30.Sa8UFkFyLKTL-JLzaojq9whdq3VjHFqxSVlWY_W4HkU';
+        const { createClient } = supabase;
+        const supabaseClient = createClient(supabaseUrl, supabaseKey);
+        
+        // Google OAuth Configuration
+        let googleAuth = null;
+        
+        // Initialize Google OAuth
+        function initializeGoogleAuth() {
+            google.accounts.id.initialize({
+                client_id: '403529757349-vu7hdavb3eghco76hr977r4jekr8b9jt.apps.googleusercontent.com',
+                callback: handleGoogleSignIn
+            });
+        }
+        
+        function signInWithGoogle() {
+            google.accounts.id.prompt();
+        }
+        
+        function generateUserId() {
+            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        async function handleGoogleSignIn(response) {
+            try {
+                // Decode JWT token
+                const payload = JSON.parse(atob(response.credential.split('.')[1]));
+                
+                // Generate unique user_id
+                const userId = generateUserId();
+                
+                currentUser = {
+                    name: payload.name,
+                    email: payload.email,
+                    picture: payload.picture,
+                    googleId: payload.sub,
+                    user_id: userId
+                };
+                
+                isLoggedIn = true;
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                updateAuthUI();
+                closeAllModals();
+                alert('Successfully signed in with Google!');
+            } catch (error) {
+                console.error('Google sign-in error:', error);
+                alert('Google sign-in failed. Please try again.');
+            }
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            currentUser = {};
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            updateAuthUI();
+            alert('Logged out successfully!');
+        }
+    </script>
+</body>
+</html>
