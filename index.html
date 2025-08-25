@@ -11,51 +11,167 @@
     <style>
         .fade-in { opacity: 1; transition: opacity 0.3s ease-in-out; }
         .fade-out { opacity: 0; transition: opacity 0.3s ease-in-out; }
-        .service-card:hover { transform: translateY(-5px); transition: transform 0.3s ease; }
+        
+        /* Beautiful Gradients */
+        .gradient-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .gradient-secondary { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .gradient-success { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .gradient-warm { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .gradient-cool { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .gradient-ocean { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        
+        /* Card Effects */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Button Animations */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
+        }
+        
+        /* Header Styling */
+        .header-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Language Toggle */
+        .lang-toggle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            padding: 4px;
+        }
+        .lang-btn {
+            border-radius: 20px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-weight: 500;
+        }
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Service Icons */
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero-title { font-size: 1.875rem; line-height: 2.25rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .service-card { margin-bottom: 1.5rem; }
+            .hero-title { font-size: 2rem; line-height: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .service-card { margin-bottom: 2rem; }
             .container { padding-left: 1rem; padding-right: 1rem; }
         }
         @media (max-width: 640px) {
-            .hero-title { font-size: 1.5rem; line-height: 2rem; }
-            .hero-subtitle { font-size: 0.875rem; }
+            .hero-title { font-size: 1.75rem; line-height: 2.25rem; }
+            .hero-subtitle { font-size: 1rem; }
+        }
+        
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Input Styling */
+        .form-input {
+            border-radius: 15px;
+            border: 2px solid #e5e7eb;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
+    <header class="header-glass fixed w-full top-0 z-50 shadow-lg">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <h1 class="text-xl sm:text-2xl font-bold text-blue-600">KR Services</h1>
+                    <div class="gradient-primary p-3 rounded-full mr-3">
+                        <i class="fas fa-home text-white text-xl"></i>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">KR Services</h1>
                 </div>
                 
                 <!-- Language Toggle -->
-                <div class="flex items-center space-x-2 sm:space-x-4">
-                    <div class="flex bg-gray-100 rounded-lg p-1">
-                        <button onclick="changeLanguage('en')" class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-sm font-medium transition-colors" id="en-btn">En</button>
-                        <button onclick="changeLanguage('ml')" class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-sm font-medium transition-colors" id="ml-btn">Mal</button>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <div class="lang-toggle">
+                        <button onclick="changeLanguage('en')" class="lang-btn text-xs sm:text-sm" id="en-btn">En</button>
+                        <button onclick="changeLanguage('ml')" class="lang-btn text-xs sm:text-sm" id="ml-btn">Mal</button>
                     </div>
                     
                     <!-- Auth Buttons -->
                     <div id="authButtons" class="flex">
-                        <button onclick="openLoginModal()" class="px-3 py-2 sm:px-6 sm:py-2 text-blue-600 hover:bg-blue-50 rounded-lg text-xs sm:text-sm font-medium">Sign In</button>
+                        <button onclick="openLoginModal()" class="btn-primary text-xs sm:text-sm px-4 py-2 sm:px-6 sm:py-3">Sign In</button>
                     </div>
                     
                     <!-- User Menu (hidden by default) -->
-                    <div id="userMenu" class="hidden flex items-center space-x-2 sm:space-x-4">
-                        <div class="flex items-center space-x-2">
-                            <div id="userAvatar" class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-400 flex items-center justify-center">
-                                <i class="fas fa-user text-white text-xs sm:text-sm"></i>
+                    <div id="userMenu" class="hidden flex items-center space-x-3">
+                        <div class="flex items-center space-x-2 glass-effect px-3 py-2 rounded-full">
+                            <div id="userAvatar" class="w-8 h-8 rounded-full gradient-primary flex items-center justify-center">
+                                <i class="fas fa-user text-white text-sm"></i>
                             </div>
                             <span id="userName" class="hidden sm:block text-sm font-medium text-gray-700">User</span>
                         </div>
-                        <button onclick="logout()" class="px-2 py-1 sm:px-4 sm:py-2 text-red-600 hover:bg-red-50 rounded-lg text-xs sm:text-sm font-medium">Logout</button>
+                        <button onclick="logout()" class="btn-secondary text-xs sm:text-sm px-4 py-2">Logout</button>
                     </div>
                 </div>
             </div>
@@ -63,15 +179,22 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 sm:py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 id="hero-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 hero-title px-2">Find Trusted Local Service Providers</h2>
-            <p id="hero-subtitle" class="text-base sm:text-lg md:text-xl mb-8 hero-subtitle px-4 max-w-3xl mx-auto">Book professional services for your home with just a few clicks. Quality guaranteed!</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 px-4">
-                <a href="#services" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">Browse Services</a>
-                <a href="track_service.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">Track Service</a>
+    <section class="gradient-ocean text-white py-20 sm:py-24 mt-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 id="hero-title" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 hero-title leading-tight">Find Trusted Local Service Providers</h2>
+                <p id="hero-subtitle" class="text-lg sm:text-xl md:text-2xl mb-10 hero-subtitle opacity-90 max-w-3xl mx-auto">Book professional services for your home with just a few clicks. Quality guaranteed!</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#services" class="glass-effect text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition duration-300 text-lg shadow-lg">Browse Services</a>
+                    <a href="track_service.html" class="bg-white text-purple-600 px-10 py-4 rounded-full font-semibold hover:shadow-xl transition duration-300 text-lg">Track Service</a>
+                </div>
             </div>
         </div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 bg-white opacity-10 rounded-full"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 bg-white opacity-5 rounded-full"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-10 rounded-full"></div>
     </section>
 
     <!-- Services Section -->
@@ -79,146 +202,151 @@
         <div class="container mx-auto px-4">
             <h2 id="services-title" class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Our Services</h2>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Home Cleaning -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Home Cleaning')">
-                    <div class="h-48 bg-blue-100">
-                        <img src="img/home-cleaning.webp" alt="Home Cleaning" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Home Cleaning</h3>
-                        <p class="text-gray-600 mb-4 text-sm sm:text-base">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('Home Cleaning')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-primary mx-auto mb-4">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Home Cleaning</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Professional deep cleaning services for your home. We handle kitchens, bathrooms, living areas, and more.
                         </p>
-                        <button class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 font-medium">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
+                
                 <!-- AC Repair -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('AC Repair')">
-                    <div class="h-48 bg-green-100">
-                        <img src="img/ac-repair.webp" alt="AC Repair" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">AC Repair</h3>
-                        <p class="text-gray-600 mb-4">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('AC Repair')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-success mx-auto mb-4">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">AC Repair</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Expert AC repair and maintenance services by certified technicians. Get your cooling system running smoothly.
                         </p>
-                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
 
                 <!-- Plumbing -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Plumbing')">
-                    <div class="h-48 bg-yellow-100">
-                        <img src="img/plumbing.webp" alt="Plumbing" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Plumbing</h3>
-                        <p class="text-gray-600 mb-4">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('Plumbing')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-warm mx-auto mb-4">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Plumbing</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Fix leaks, unclog drains, and solve all plumbing issues with our experienced plumbers.
                         </p>
-                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
 
                 <!-- Electrical Work -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Electrical Work')">
-                    <div class="h-48 bg-purple-100">
-                        <img src="img/electrical.webp" alt="Electrical Work" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Electrical</h3>
-                        <p class="text-gray-600 mb-4">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('Electrical Work')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-secondary mx-auto mb-4">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Electrical</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Safe and reliable electrical repairs, installations, and maintenance for your home.
                         </p>
-                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
 
                 <!-- Painting -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Painting')">
-                    <div class="h-48 bg-red-100">
-                        <img src="img/painting.webp" alt="Painting" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Painting</h3>
-                        <p class="text-gray-600 mb-4">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('Painting')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-cool mx-auto mb-4">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Painting</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Interior and exterior painting services by skilled professionals using quality materials.
                         </p>
-                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
+                
                 <!-- Appliance Repair -->
-                <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Appliance Repair')">
-                    <div class="h-48 bg-indigo-100">
-                        <img src="img/appliance-repair.webp" alt="Appliance Repair" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Appliance Repair</h3>
-                        <p class="text-gray-600 mb-4">
+                <div class="service-card bg-white cursor-pointer" onclick="selectService('Appliance Repair')">
+                    <div class="p-8 text-center">
+                        <div class="service-icon gradient-ocean mx-auto mb-4">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Appliance Repair</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Repair services for all major home appliances - refrigerators, washing machines, and more.
                         </p>
-                        <button class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                        <button class="btn-primary w-full">
                             Book Now
                         </button>
                     </div>
                 </div>
             </div>
             <!-- Additional Navigation -->
-            <div class="mt-12 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="track_service.html" class="px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition duration-300 text-center">
-                    <i class="fas fa-map-marker-alt mr-2"></i> Track Your Service
+            <div class="mt-16 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                <a href="track_service.html" class="glass-effect text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-white transition duration-300 text-center text-lg shadow-lg">
+                    <i class="fas fa-map-marker-alt mr-3"></i> Track Your Service
                 </a>
-                <a href="provider.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition duration-300 text-center">
-                    <i class="fas fa-user-plus mr-2"></i> Become a Provider
+                <a href="../krprovider/provider.html" class="btn-secondary px-8 py-4 text-center text-lg">
+                    <i class="fas fa-user-plus mr-3"></i> Become a Provider
                 </a>
             </div>
         </div>
     </section>
     
      <!-- Features Section -->
-    <section class="py-12 md:py-16 bg-white">
+    <section class="py-20 gradient-cool">
         <div class="container mx-auto px-4">
-            <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-12">Why Choose ServiceHub?</h2>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose KR Services?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Experience the difference with our premium service approach</p>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center px-4">
-                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-shield-alt text-2xl text-blue-600"></i>
+                <div class="text-center p-8 bg-white rounded-3xl shadow-xl hover:shadow-2xl transition duration-300">
+                    <div class="gradient-primary w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Verified Professionals</h3>
-                    <p class="text-gray-600">
-                        All our service providers are thoroughly vetted and background-checked for your safety.
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Verified Professionals</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        All our service providers are thoroughly vetted and background-checked for your safety and peace of mind.
                     </p>
                 </div>
                 
-                <div class="text-center px-4">
-                    <div class="bg-green-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-rupee-sign text-2xl text-green-600"></i>
+                <div class="text-center p-8 bg-white rounded-3xl shadow-xl hover:shadow-2xl transition duration-300">
+                    <div class="gradient-success w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-rupee-sign text-3xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Transparent Pricing</h3>
-                    <p class="text-gray-600">
-                        No hidden charges. Get upfront pricing before you book any service.
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Transparent Pricing</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        No hidden charges or surprises. Get upfront, honest pricing before you book any service.
                     </p>
                 </div>
                 
-                <div class="text-center px-4">
-                    <div class="bg-purple-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-headset text-2xl text-purple-600"></i>
+                <div class="text-center p-8 bg-white rounded-3xl shadow-xl hover:shadow-2xl transition duration-300">
+                    <div class="gradient-secondary w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-headset text-3xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
-                    <p class="text-gray-600">
-                        Our customer support team is always available to assist you with any queries.
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">24/7 Support</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Our dedicated customer support team is always available to assist you with any queries or concerns.
                     </p>
                 </div>
             </div>
@@ -226,89 +354,107 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="gradient-ocean text-white py-16">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">ServiceHub</h3>
-                    <p class="text-gray-400">
-                        Your trusted partner for all home service needs. Quality service at your doorstep.
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-2 rounded-full mr-3">
+                            <i class="fas fa-home text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">KR Services</h3>
+                    </div>
+                    <p class="text-purple-100 leading-relaxed">
+                        Your trusted partner for all home service needs. Quality service at your doorstep, every time.
                     </p>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-white">Services</a></li>
-                        <li><a href="track_service.html" class="text-gray-400 hover:text-white">Track Service</a></li>
-                        <li><a href="provider.html" class="text-gray-400 hover:text-white">Become a Provider</a></li>
+                    <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-purple-100 hover:text-white transition duration-300 flex items-center"><i class="fas fa-home mr-2"></i> Home</a></li>
+                        <li><a href="#services" class="text-purple-100 hover:text-white transition duration-300 flex items-center"><i class="fas fa-concierge-bell mr-2"></i> Services</a></li>
+                        <li><a href="track_service.html" class="text-purple-100 hover:text-white transition duration-300 flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Track Service</a></li>
+                        <li><a href="../krprovider/provider.html" class="text-purple-100 hover:text-white transition duration-300 flex items-center"><i class="fas fa-user-plus mr-2"></i> Become a Provider</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
-                    <ul class="space-y-2 text-gray-400">
+                    <h3 class="text-xl font-bold mb-6">Contact Us</h3>
+                    <ul class="space-y-4 text-purple-100">
                         <li class="flex items-center">
-                            <i class="fas fa-phone-alt mr-2"></i> +91 9876543210
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full mr-3">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            +91 9876543210
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope mr-2"></i> support@servicehub.com
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full mr-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            support@krservices.com
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2"></i> Kochi, Kerala
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full mr-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            Kochi, Kerala
                         </li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <h3 class="text-xl font-bold mb-6">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white">
+                        <a href="#" class="bg-white bg-opacity-20 p-3 rounded-full hover:bg-white hover:text-purple-600 transition duration-300">
                             <i class="fab fa-facebook-f text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
+                        <a href="#" class="bg-white bg-opacity-20 p-3 rounded-full hover:bg-white hover:text-purple-600 transition duration-300">
                             <i class="fab fa-twitter text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
+                        <a href="#" class="bg-white bg-opacity-20 p-3 rounded-full hover:bg-white hover:text-purple-600 transition duration-300">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-linkedin-in text-xl"></i>
+                        <a href="#" class="bg-white bg-opacity-20 p-3 rounded-full hover:bg-white hover:text-purple-600 transition duration-300">
+                            <i class="fab fa-youtube-in text-xl"></i>
                         </a>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-purple-100 text-sm">Stay connected for updates and offers!</p>
                     </div>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-                <p>&copy; 2023 ServiceHub. All rights reserved.</p>
+            <div class="border-t border-purple-300 border-opacity-30 mt-12 pt-8 text-center">
+                <p class="text-purple-100">&copy; 2024 KR Services. All rights reserved. Made with ❤️ in Kerala</p>
             </div>
         </div>
     </footer>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-out hidden" onclick="closeModal('loginModal')">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4" onclick="event.stopPropagation()">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold">Sign In</h3>
-                    <button onclick="closeModal('loginModal')" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
+        <div class="modal-content bg-white w-full max-w-md mx-4" onclick="event.stopPropagation()">
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <div class="gradient-primary p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Welcome Back</h3>
+                    <p class="text-gray-600 mt-2">Sign in to your account</p>
                 </div>
                 
                 <form onsubmit="loginUser(event)">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email or Phone</label>
-                        <input type="text" id="loginEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter email or phone number">
-                    </div>
-                    
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input type="password" id="loginPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Email or Phone</label>
+                        <input type="text" id="loginEmail" required class="form-input w-full" placeholder="Enter email or phone number">
                     </div>
                     
-                    <button type="submit" id="loginBtn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Password</label>
+                        <input type="password" id="loginPassword" required class="form-input w-full" placeholder="Enter your password">
+                    </div>
+                    
+                    <button type="submit" id="loginBtn" class="btn-primary w-full mb-4">
                         Sign In
                     </button>
                     
@@ -343,42 +489,43 @@
 
     <!-- Signup Modal -->
     <div id="signupModal" class="modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 fade-out hidden" onclick="closeModal('signupModal')">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4" onclick="event.stopPropagation()">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold">Create Account</h3>
-                    <button onclick="closeModal('signupModal')" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
+        <div class="modal-content bg-white w-full max-w-md mx-4 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <div class="gradient-secondary p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user-plus text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Join KR Services</h3>
+                    <p class="text-gray-600 mt-2">Create your account today</p>
                 </div>
                 
                 <form onsubmit="registerUser(event)">
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                        <input type="text" id="signupName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Full Name</label>
+                        <input type="text" id="signupName" required class="form-input w-full" placeholder="Enter your full name">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                        <input type="tel" id="signupPhone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="+91 9876543210">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Phone Number</label>
+                        <input type="tel" id="signupPhone" required class="form-input w-full" placeholder="+91 9876543210">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
-                        <input type="email" id="signupEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Email (Optional)</label>
+                        <input type="email" id="signupEmail" class="form-input w-full" placeholder="your@email.com">
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input type="password" id="signupPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Password</label>
+                        <input type="password" id="signupPassword" required class="form-input w-full" placeholder="Create a strong password">
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-                        <input type="password" id="signupConfirmPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" required class="form-input w-full" placeholder="Confirm your password">
                     </div>
                     
-                    <button type="submit" id="signupBtn" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                    <button type="submit" id="signupBtn" class="btn-secondary w-full mb-4">
                         Create Account
                     </button>
                     
@@ -499,11 +646,11 @@
             
             // Update button styles
             document.getElementById('en-btn').className = lang === 'en' ? 
-                'px-3 py-1 rounded-md text-sm font-medium bg-white text-blue-600 shadow-sm' : 
-                'px-3 py-1 rounded-md text-sm font-medium text-gray-600 hover:text-gray-800';
+                'lang-btn active text-xs sm:text-sm' : 
+                'lang-btn text-xs sm:text-sm';
             document.getElementById('ml-btn').className = lang === 'ml' ? 
-                'px-3 py-1 rounded-md text-sm font-medium bg-white text-blue-600 shadow-sm' : 
-                'px-3 py-1 rounded-md text-sm font-medium text-gray-600 hover:text-gray-800';
+                'lang-btn active text-xs sm:text-sm' : 
+                'lang-btn text-xs sm:text-sm';
 
             if (lang === 'ml') {
                 document.getElementById('hero-title').textContent = 'വിശ്വസനീയമായ പ്രാദേശിക സേവന ദാതാക്കളെ കണ്ടെത്തുക';
@@ -878,13 +1025,13 @@
         function setButtonLoading(button, isLoading, text) {
             if (isLoading) {
                 button.disabled = true;
-                button.classList.add('bg-gray-400', 'cursor-not-allowed');
-                button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                button.style.opacity = '0.7';
+                button.style.cursor = 'not-allowed';
                 button.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i>${text}`;
             } else {
                 button.disabled = false;
-                button.classList.remove('bg-gray-400', 'cursor-not-allowed');
-                button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
                 button.innerHTML = text;
             }
         }
