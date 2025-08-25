@@ -191,13 +191,7 @@
             }
         };
 
-        // Sample providers data
-        const sampleProviders = [
-            { id: 1, name: 'ABC Services', rating: 4.8, availability: 'Available Today' },
-            { id: 2, name: 'Quick Fix Solutions', rating: 4.6, availability: 'Available Tomorrow' },
-            { id: 3, name: 'Professional Care', rating: 4.9, availability: 'Available Today' },
-            { id: 4, name: 'Home Masters', rating: 4.7, availability: 'Available in 2 days' }
-        ];
+
 
         document.addEventListener('DOMContentLoaded', function() {
             initializePage();
@@ -242,30 +236,47 @@
             });
         }
 
-        function loadProviders() {
+        async function loadProviders() {
             const container = document.getElementById('providersContainer');
-            container.innerHTML = '';
+            container.innerHTML = '<div class="text-center py-4">Loading providers...</div>';
 
-            sampleProviders.forEach(provider => {
-                const providerDiv = document.createElement('div');
-                providerDiv.className = 'flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50';
-                providerDiv.innerHTML = `
-                    <div class="flex items-center">
-                        <input type="checkbox" id="provider_${provider.id}" name="selectedProviders" value="${provider.id}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <div class="ml-3">
-                            <label for="provider_${provider.id}" class="text-sm font-medium text-gray-900 cursor-pointer">${provider.name}</label>
-                            <div class="text-xs text-gray-500">
-                                <span class="inline-flex items-center">
-                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
-                                    ${provider.rating}
-                                </span>
-                                <span class="ml-2">${provider.availability}</span>
+            try {
+                const { data: providers, error } = await supabaseClient
+                    .from('providers')
+                    .select('*');
+
+                if (error) throw error;
+
+                container.innerHTML = '';
+                if (!providers?.length) {
+                    container.innerHTML = '<div class="text-center py-4 text-gray-500">No providers available</div>';
+                    return;
+                }
+
+                providers.forEach(provider => {
+                    const providerDiv = document.createElement('div');
+                    providerDiv.className = 'flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50';
+                    providerDiv.innerHTML = `
+                        <div class="flex items-center">
+                            <input type="checkbox" id="provider_${provider.id}" name="selectedProviders" value="${provider.id}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <div class="ml-3">
+                                <label for="provider_${provider.id}" class="text-sm font-medium text-gray-900 cursor-pointer">${provider.name}</label>
+                                <div class="text-xs text-gray-500">
+                                    <span class="inline-flex items-center">
+                                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                        ${provider.rating || 'N/A'}
+                                    </span>
+                                    <span class="ml-2">${provider.availability || 'Contact for availability'}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                container.appendChild(providerDiv);
-            });
+                    `;
+                    container.appendChild(providerDiv);
+                });
+            } catch (error) {
+                console.error('Error loading providers:', error);
+                container.innerHTML = '<div class="text-center py-4 text-red-600">Failed to load providers</div>';
+            }
         }
 
         async function confirmService(event) {
