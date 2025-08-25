@@ -30,32 +30,32 @@
     <!-- Header -->
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-4">
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
-                <div class="flex items-center justify-center sm:justify-start">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
                     <h1 class="text-xl sm:text-2xl font-bold text-blue-600">KR Services</h1>
                 </div>
                 
                 <!-- Language Toggle -->
-                <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                    <div class="flex bg-gray-100 rounded-lg p-1 w-full sm:w-auto justify-center">
-                        <button onclick="changeLanguage('en')" class="px-4 py-2 sm:px-3 sm:py-1 rounded-md text-sm font-medium transition-colors flex-1 sm:flex-none" id="en-btn">English</button>
-                        <button onclick="changeLanguage('ml')" class="px-4 py-2 sm:px-3 sm:py-1 rounded-md text-sm font-medium transition-colors flex-1 sm:flex-none" id="ml-btn">മലയാളം</button>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="flex bg-gray-100 rounded-lg p-1">
+                        <button onclick="changeLanguage('en')" class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-sm font-medium transition-colors" id="en-btn">En</button>
+                        <button onclick="changeLanguage('ml')" class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-xs sm:text-sm font-medium transition-colors" id="ml-btn">Mal</button>
                     </div>
                     
                     <!-- Auth Buttons -->
-                    <div id="authButtons" class="flex justify-center sm:justify-start">
-                        <button onclick="openLoginModal()" class="px-6 py-2 text-blue-600 hover:bg-blue-50 rounded-lg font-medium">Sign In</button>
+                    <div id="authButtons" class="flex">
+                        <button onclick="openLoginModal()" class="px-3 py-2 sm:px-6 sm:py-2 text-blue-600 hover:bg-blue-50 rounded-lg text-xs sm:text-sm font-medium">Sign In</button>
                     </div>
                     
                     <!-- User Menu (hidden by default) -->
-                    <div id="userMenu" class="hidden flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                    <div id="userMenu" class="hidden flex items-center space-x-2 sm:space-x-4">
                         <div class="flex items-center space-x-2">
-                            <div id="userAvatar" class="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
-                                <i class="fas fa-user text-white text-sm"></i>
+                            <div id="userAvatar" class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                                <i class="fas fa-user text-white text-xs sm:text-sm"></i>
                             </div>
                             
                         </div>
-                        <button onclick="logout()" class="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium">Logout</button>
+                        <button onclick="logout()" class="px-2 py-1 sm:px-4 sm:py-2 text-red-600 hover:bg-red-50 rounded-lg text-xs sm:text-sm font-medium">Logout</button>
                     </div>
                 </div>
             </div>
@@ -82,8 +82,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Home Cleaning -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Home Cleaning')">
-                    <div class="h-48 bg-blue-100 flex items-center justify-center">
-                        <i class="fas fa-broom text-6xl text-blue-600"></i>
+                    <div class="h-48 bg-blue-100">
+                        <img src="img/home-cleaning.webp" alt="Home Cleaning" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Home Cleaning</h3>
@@ -97,8 +97,8 @@
                 </div>
                 <!-- AC Repair -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('AC Repair')">
-                    <div class="h-48 bg-green-100 flex items-center justify-center">
-                        <i class="fas fa-snowflake text-6xl text-green-600"></i>
+                    <div class="h-48 bg-green-100">
+                        <img src="img/ac-repair.webp" alt="AC Repair" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">AC Repair</h3>
@@ -113,8 +113,8 @@
 
                 <!-- Plumbing -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Plumbing')">
-                    <div class="h-48 bg-yellow-100 flex items-center justify-center">
-                        <i class="fas fa-tint text-6xl text-yellow-600"></i>
+                    <div class="h-48 bg-yellow-100">
+                        <img src="img/plumbing.webp" alt="Plumbing" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Plumbing</h3>
@@ -129,8 +129,8 @@
 
                 <!-- Electrical Work -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Electrical Work')">
-                    <div class="h-48 bg-purple-100 flex items-center justify-center">
-                        <i class="fas fa-bolt text-6xl text-purple-600"></i>
+                    <div class="h-48 bg-purple-100">
+                        <img src="img/electrical.webp" alt="Electrical Work" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Electrical</h3>
@@ -145,8 +145,8 @@
 
                 <!-- Painting -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Painting')">
-                    <div class="h-48 bg-red-100 flex items-center justify-center">
-                        <i class="fas fa-paint-roller text-6xl text-red-600"></i>
+                    <div class="h-48 bg-red-100">
+                        <img src="img/painting.webp" alt="Painting" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Painting</h3>
@@ -160,8 +160,8 @@
                 </div>
                 <!-- Appliance Repair -->
                 <div class="service-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" onclick="selectService('Appliance Repair')">
-                    <div class="h-48 bg-indigo-100 flex items-center justify-center">
-                        <i class="fas fa-wrench text-6xl text-indigo-600"></i>
+                    <div class="h-48 bg-indigo-100">
+                        <img src="img/appliance-repair.webp" alt="Appliance Repair" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Appliance Repair</h3>
